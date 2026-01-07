@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import emailjs from '@emailjs/browser';
 import BlogSection from './BlogSection';
 
 const ContactPage = () => {
@@ -25,43 +26,37 @@ const ContactPage = () => {
     setStatus('');
 
     try {
-      // Using EmailJS to send email
-      const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          service_id: 'YOUR_SERVICE_ID', // Replace with your EmailJS service ID
-          template_id: 'YOUR_TEMPLATE_ID', // Replace with your EmailJS template ID
-          user_id: 'YOUR_PUBLIC_KEY', // Replace with your EmailJS public key
-          template_params: {
-            from_name: formData.name,
-            from_email: formData.email,
-            phone: formData.tel,
-            subject: formData.subject,
-            message: formData.message,
-            to_email: 'info@freelancerwaala.com'
-          }
-        })
-      });
+      // EmailJS configuration
+      const serviceId = 'service_2en6bfi';
+      const templateId = 'template_ext2i42';
+      const publicKey = 'EyDF-cgWPg-1ZQ7eI';
 
-      if (response.ok) {
-        setStatus('success');
-        setFormData({
-          name: '',
-          email: '',
-          tel: '',
-          subject: '',
-          message: ''
-        });
-        setTimeout(() => setStatus(''), 5000);
-      } else {
-        setStatus('error');
-      }
+      // Template parameters
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        phone: formData.tel,
+        subject: formData.subject,
+        message: formData.message,
+        to_email: 'info@freelancerwaala.com'
+      };
+
+      // Send email using EmailJS
+      await emailjs.send(serviceId, templateId, templateParams, publicKey);
+      
+      setStatus('success');
+      setFormData({
+        name: '',
+        email: '',
+        tel: '',
+        subject: '',
+        message: ''
+      });
+      setTimeout(() => setStatus(''), 5000);
     } catch (error) {
       console.error('Error sending email:', error);
       setStatus('error');
+      setTimeout(() => setStatus(''), 5000);
     } finally {
       setIsSubmitting(false);
     }
