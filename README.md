@@ -39,14 +39,6 @@ A modern, dark-themed clone of the FreeLancer Waala website built with React and
 4. **Open your browser**
    Navigate to `http://localhost:3000`
 
-## 🎨 Design Features
-
-### Color Scheme
-- **Primary**: Orange gradient (#f97316 to #ea580c)
-- **Background**: Dark slate (#0f172a, #1e293b)
-- **Text**: White and gray variants
-- **Accents**: Primary orange for highlights
-
 ### Components
 - **Header** - Fixed navigation with smooth scroll
 - **Hero Section** - Auto-sliding carousel with CTA buttons
